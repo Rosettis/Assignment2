@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Assignment 2</string>
+
+    <string name="productID">Product ID:</string>
+    <string name="productName">Product Name: </string>
+    <string name="description">Description:</string>
+    <string name="price">Price: CAD</string>
+    <string name="priceBtc">Price: BTC</string>
+    <string name="nextProduct">Next</string>
+    <string name="prevProduct">Prev</string>
+    <string name="btnDelete">Delete</string>
+
+
+    <string name="preparing">Preparing to test database operations</string>
+    <string name="error">There was an error when performing database operations</string>
+    <string name="success">Database operations have been completed successfully</string>
+
+    <string name="action_settings">Settings</string>
+</resources>

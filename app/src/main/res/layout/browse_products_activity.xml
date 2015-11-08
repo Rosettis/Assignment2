@@ -1,0 +1,110 @@
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+    <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:columnCount="2"
+        android:rowCount="6"
+        android:paddingTop="75dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        tools:context=".BrowseProductsActivity"
+        android:id="@+id/gridLayout">
+
+        <TextView android:id="@+id/lblResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_columnSpan="2"
+            android:text="@string/preparing" />
+        <!--<TextView android:id="@+id/lblProductID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/productID" />
+
+        <TextView android:id="@+id/lblProductIDValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="" />-->
+
+        <TextView android:id="@+id/lblProductName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/productName" />
+
+        <TextView android:id="@+id/lblProductNameValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="" />
+
+        <TextView android:id="@+id/lblDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/description" />
+
+        <TextView android:id="@+id/lblDescriptionValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="" />
+
+        <TextView android:id="@+id/lblPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/price" />
+
+        <TextView android:id="@+id/lblPriceValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="" />
+
+        <TextView android:id="@+id/lblPriceBitcoin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/priceBtc" />
+
+        <TextView android:id="@+id/lblPriceBitcoinValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="" />
+
+    </GridLayout>
+
+    <Button
+        android:id="@+id/btnNextProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nextProduct"
+        android:onClick="nextProduct"
+        android:layout_below="@+id/gridLayout"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="15dp" />
+
+    <Button
+        android:id="@+id/btnPrevProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/prevProduct"
+        android:onClick="prevProduct"
+        android:layout_marginStart="15dp"
+        android:layout_alignTop="@+id/btnNextProduct"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnDelete"
+        android:onClick="deleteProduct"
+        android:layout_alignTop="@+id/btnNextProduct"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
