@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_create_product"
+    tools:context="csci4100.uoit.ca.assignment2.CreateProductActivity">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/productName"
+        android:id="@+id/lblCreateName"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/inputName"
+        android:hint="@string/hintName"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/lblCreateName"
+        android:layout_marginStart="31dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/description"
+        android:id="@+id/lblCreateDescription"
+        android:layout_below="@+id/lblCreateName"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="25dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/inputDescription"
+        android:hint="@string/hintDesc"
+        android:layout_alignTop="@+id/lblCreateDescription"
+        android:layout_alignStart="@+id/inputName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/price"
+        android:id="@+id/lblCreatePrice"
+        android:layout_below="@+id/lblCreateDescription"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="25dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/inputPrice"
+        android:hint="@string/hintPrice"
+        android:layout_alignTop="@+id/lblCreatePrice"
+        android:layout_alignStart="@+id/inputDescription" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnCreate"
+        android:id="@+id/btnCreate"
+        android:onClick="createProduct"
+        android:layout_centerVertical="true"
+        android:layout_alignEnd="@+id/inputPrice" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnCancel"
+        android:id="@+id/btnCancel"
+        android:onClick="cancelCreate"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>

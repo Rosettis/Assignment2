@@ -1,15 +1,15 @@
 package csci4100.uoit.ca.assignment2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -25,8 +25,9 @@ public class BrowseProductsActivity extends AppCompatActivity implements Bitcoin
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // get the result text label, so that we can output status messages
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        // get the result text label, so that Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         TextView resultField = (TextView)findViewById(R.id.lblResult);
 
         // create an instance of our helper class to do the job
@@ -63,6 +64,53 @@ public class BrowseProductsActivity extends AppCompatActivity implements Bitcoin
         nextProduct();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_create) {
+            Intent intent = new Intent(this,CreateProductActivity.class);
+            startActivityForResult(intent, 1);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                // Implement the data as a new Product
+                String prodName = data.getExtras().getString("name");
+                String prodDesc = data.getExtras().getString("desc");
+                String priceCAD = data.getExtras().getString("price");
+                ProductDBHelper dbHelper = new ProductDBHelper(this);
+                if(priceCAD != null){
+                    Double dblPrice = Double.parseDouble(priceCAD);
+                    dbHelper.createProduct(prodName, prodDesc, dblPrice);
+                }else {
+                    Double dblPrice = 0.00;
+                    dbHelper.createProduct(prodName, prodDesc, dblPrice);
+                }
+                this.products = dbHelper.getAllProducts();
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(getApplicationContext(),
+                        "Product addition cancelled",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     public void nextProduct(View v) {
         nextProduct();
     }
@@ -96,13 +144,19 @@ public class BrowseProductsActivity extends AppCompatActivity implements Bitcoin
     public void deleteProduct(View view){
         // create an instance of our helper class to do the job
         ProductDBHelper dbHelper = new ProductDBHelper(this);
-
-        dbHelper.deleteProduct(this.products.get(this.ProductIndex).getId());
-        this.products = dbHelper.getAllProducts();
-        if (this.ProductIndex >= this.products.size()) {
-            this.ProductIndex--;
+        if(this.products.size() > 1) {
+            dbHelper.deleteProduct(this.products.get(this.ProductIndex).getId());
+            this.products = dbHelper.getAllProducts();
+            if (this.ProductIndex >= this.products.size()) {
+                this.ProductIndex--;
+            } else {
+                this.ProductIndex++;
+            }
+            showProduct(this.products.get(this.ProductIndex));
         }else{
-            this.ProductIndex++;
+            Toast.makeText(getApplicationContext(),
+                    "Cannot delete, Database must have at least one value",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -132,28 +186,4 @@ public class BrowseProductsActivity extends AppCompatActivity implements Bitcoin
         TextView priceBitcoin = (TextView) findViewById(R.id.lblPriceBitcoinValue);
         priceBitcoin.setText(price);
     }
-
-        /*
-
-        try {
-            // parse out the data
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
-            URL convert = new URL(url);
-
-            Document document = docBuilder.parse(convert.openStream());
-            document.getDocumentElement().normalize();
-            // look for <body> tags and get the data inside
-            NodeList body = document.getElementsByTagName("body");
-            if ((body.getLength() > 0) && (body.item(0).getNodeType() == Node.ELEMENT_NODE)) {
-                Element definitions = (Element) body.item(0);
-                NodeList preTags = definitions.getElementsByTagName("pre");
-                String bitcoin = preTags.item(0).getTextContent();
-                Log.i("the bitcoin",bitcoin);
-                btcPrice = Double.parseDouble(bitcoin);
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return btcPrice;*/
 }
